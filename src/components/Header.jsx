@@ -66,7 +66,6 @@ export default function Header() {
                     }`}
             ></div>
 
-            {/* Dropdown panel, slides down from directly under the header */}
             <div
                 style={{
                     display: 'grid',
