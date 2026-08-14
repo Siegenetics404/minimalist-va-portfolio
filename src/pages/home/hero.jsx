@@ -28,7 +28,7 @@ export default function Hero() {
       if (maskRef.current) {
         const gradients = trail.current
           .map((p, i) => {
-            const size = 110 - i * 8;
+            const size = 170 - i * 10;
             const opacity = 1 - i * 0.1;
             return `radial-gradient(circle ${size}px at ${p.x}px ${p.y}px, rgba(255,255,255,${opacity}) 20%, rgba(255,255,255,${opacity * 0.6}) 40%, transparent 70%)`;
           })
