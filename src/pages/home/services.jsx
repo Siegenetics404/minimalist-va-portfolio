@@ -1,8 +1,6 @@
-import { useRef, useEffect } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { useRef } from 'react'
+import useStackReveal from '../../hooks/useStackReveal'
+import StickySection from '../../components/StickySection'
 
 const SERVICES = [
     {
@@ -24,63 +22,15 @@ const SERVICES = [
 
 export default function Services() {
     const sectionRef = useRef(null)
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.from('.service-eyebrow', {
-                opacity: 0,
-                y: 30,
-                duration: 0.5,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: 'top 50%',
-                    toggleActions: 'play none none reverse',
-                },
-            })
-
-            gsap.from('.service-header', {
-                opacity: 0,
-                y: 50,
-                duration: 0.7,
-                delay: 0.1,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: 'top 50%',
-                    toggleActions: 'play none none reverse',
-                },
-            })
-
-            gsap.from('.service-card', {
-                opacity: 0,
-                y: 90,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: 'top 50%',
-                    toggleActions: 'play none none reverse',
-                },
-            })
-        }, sectionRef)
-
-        return () => ctx.revert()
-    }, [])
+    useStackReveal(sectionRef)
 
     return (
-        <section
-            id="service"
-            ref={sectionRef}
-            style={{ fontFamily: "'Panchang', sans-serif" }}
-            className="sticky top-0 z-10 h-screen overflow-hidden bg-white text-black px-8 md:px-20 flex flex-col justify-center"
-        >
-            <span className="service-eyebrow block text-sm font-semibold tracking-widest uppercase">
+        <StickySection id="service" ref={sectionRef} zIndex={10} border>
+            <span className="reveal-eyebrow block text-sm font-semibold tracking-widest uppercase">
                 Service
             </span>
 
-            <div className="service-header mt-6 grid md:grid-cols-3 gap-8 md:gap-12 items-end">
+            <div className="reveal-header mt-6 grid md:grid-cols-3 gap-8 md:gap-12 items-end">
                 <h2 className="md:col-span-2 text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
                     What you get when you hire me
                 </h2>
@@ -94,7 +44,7 @@ export default function Services() {
                 {SERVICES.map((service) => (
                     <div
                         key={service.title}
-                        className="service-card border border-black/20 bg-black/[0.02] p-8 flex flex-col justify-between h-full"
+                        className="reveal-item border border-black/20 bg-black/[0.02] p-8 flex flex-col justify-between h-full"
                     >
                         <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
                             {service.index}
@@ -108,6 +58,6 @@ export default function Services() {
                     </div>
                 ))}
             </div>
-        </section>
+        </StickySection>
     )
 }
