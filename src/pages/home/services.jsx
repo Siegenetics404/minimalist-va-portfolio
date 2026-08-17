@@ -44,7 +44,7 @@ export default function Services() {
                 {SERVICES.map((service) => (
                     <div
                         key={service.title}
-                        className="reveal-item border border-black/20 bg-black/[0.02] p-8 flex flex-col justify-between h-full"
+                        className="reveal-item border border-black/20 bg-black/2 p-8 flex flex-col justify-between h-full"
                     >
                         <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
                             {service.index}

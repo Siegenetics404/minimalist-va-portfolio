@@ -31,7 +31,7 @@ export default function About() {
             </div>
 
             <div className="mt-8 grid md:grid-cols-2 gap-6 md:gap-10 items-stretch">
-                <div className="reveal-item relative w-full aspect-[16/10] overflow-hidden">
+                <div className="reveal-item relative w-full aspect-16/10 overflow-hidden">
                     <img
                         src={profileImg}
                         alt=""
@@ -43,7 +43,7 @@ export default function About() {
                     {STATS.map((stat) => (
                         <div
                             key={stat.label}
-                            className="reveal-item flex flex-col justify-between h-full border border-black/20 bg-black/[0.02] p-4 md:p-6"
+                            className="reveal-item flex flex-col justify-between h-full border border-black/20 bg-black/2 p-4 md:p-6"
                         >
                             <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
                                 {stat.index}
