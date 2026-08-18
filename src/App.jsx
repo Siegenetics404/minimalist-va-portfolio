@@ -6,6 +6,7 @@ import Hero from './pages/home/hero'
 import About from './pages/home/about'
 import Services from './pages/home/services'
 import Header from './components/Header'
+import Experience from './pages/home/experience'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -24,6 +25,8 @@ export default function App() {
     })
     gsap.ticker.lagSmoothing(0)
 
+    ScrollTrigger.refresh()
+
     return () => {
       lenis.destroy()
       gsap.ticker.remove(lenis.raf)
@@ -36,6 +39,7 @@ export default function App() {
       <Hero />
       <About />
       <Services />
+      <Experience />
     </main>
   )
 }
