@@ -50,7 +50,7 @@ export default function Experience() {
                 {EXPERIENCE.map((job) => (
                     <div
                         key={job.role}
-                        className="reveal-item border border-black/20 bg-black/[0.02] p-8 flex flex-col justify-between h-full"
+                        className="reveal-item border border-black/20 bg-black/2 p-8 flex flex-col justify-between h-full"
                     >
                         <div className="flex items-start justify-between gap-4">
                             <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
