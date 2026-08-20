@@ -1,6 +1,9 @@
-import { useRef } from 'react'
-import useStackReveal from '../../hooks/useStackReveal'
+import { useRef, useEffect } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import StickySection from '../../components/StickySection'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const EXPERIENCE = [
     {
@@ -17,59 +20,122 @@ const EXPERIENCE = [
         period: '2019 — 2021',
         desc: 'Supported delivery on client accounts, keeping timelines, budgets, and stakeholders aligned.',
     },
+    {
+        index: '03',
+        role: 'Operations Assistant',
+        org: 'StartUp Inc.',
+        period: '2018 — 2019',
+        desc: 'Kept day-to-day operations running smoothly across scheduling, vendors, and reporting.',
+    },
+    {
+        index: '04',
+        role: 'Project Support Intern',
+        org: 'NGO Partners',
+        period: '2017 — 2018',
+        desc: 'Assisted program leads with documentation, logistics, and on-the-ground coordination.',
+    },
 ]
 
+function ExperienceCard({ job }) {
+    return (
+        <div className="border border-black/20 bg-black/[0.02] p-8 flex flex-col justify-between h-full">
+            <div className="flex items-start justify-between gap-4">
+                <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
+                    {job.index}
+                </span>
+                <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
+                    {job.period}
+                </span>
+            </div>
+            <div className="mt-8">
+                <h3 className="text-xl md:text-2xl font-bold uppercase tracking-wide">
+                    {job.role}
+                </h3>
+                <span className="block mt-1 text-sm text-black/50">{job.org}</span>
+                <p className="mt-4 text-black/70">{job.desc}</p>
+            </div>
+        </div>
+    )
+}
+
 export default function Experience() {
-    const sectionRef = useRef(null)
-    useStackReveal(sectionRef)
+    const wrapperRef = useRef(null)
+    const headerRef = useRef(null)
+    const trackRef = useRef(null)
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            const wrapper = wrapperRef.current
+            const startPx = wrapper.offsetTop
+            const endPx = startPx + wrapper.offsetHeight - window.innerHeight
+
+            gsap.set(headerRef.current, { opacity: 0, y: 30 })
+
+            ScrollTrigger.create({
+                start: startPx,
+                end: endPx,
+                scrub: true,
+                onUpdate: (self) => {
+                    const p = self.progress
+
+                    // Header fades/lifts in quickly at the very start
+                    const fadeP = Math.min(p / 0.15, 1)
+                    gsap.set(headerRef.current, {
+                        opacity: fadeP,
+                        y: 30 * (1 - fadeP),
+                    })
+
+                    // Cards 1-2 slide out left / cards 3-4 slide in from right
+                    // across the middle-to-late portion of the scroll
+                    const slideStart = 0.45
+                    const slideEnd = 0.85
+                    const slideP = Math.min(
+                        Math.max((p - slideStart) / (slideEnd - slideStart), 0),
+                        1
+                    )
+                    gsap.set(trackRef.current, { xPercent: -50 * slideP })
+                },
+            })
+        }, wrapperRef)
+
+        return () => ctx.revert()
+    }, [])
 
     return (
-        <StickySection
-            id="experience"
-            ref={sectionRef}
-            zIndex={20}
-            bg="bg-white"
-            text="text-black"
-            border
-        >
-            <span className="reveal-eyebrow block text-sm font-semibold tracking-widest uppercase">
-                Experience
-            </span>
+        <div ref={wrapperRef} className="relative h-[200vh]">
+            <StickySection id="experience" zIndex={20} bg="bg-white" text="text-black" border>
+                <span className="block text-sm font-semibold tracking-widest uppercase">
+                    Experience
+                </span>
 
-            <div className="reveal-header mt-6 grid md:grid-cols-3 gap-8 md:gap-12 items-end">
-                <h2 className="md:col-span-2 text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
-                    Where I've done the work
-                </h2>
-                <p className="text-black/70 md:text-right">
-                    Real teams, real deadlines, real budgets — here's a look at where
-                    that track record was built.
-                </p>
-            </div>
+                <div
+                    ref={headerRef}
+                    className="mt-6 grid md:grid-cols-3 gap-8 md:gap-12 items-end"
+                >
+                    <h2 className="md:col-span-2 text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
+                        Where I've done the work
+                    </h2>
+                    <p className="text-black/70 md:text-right">
+                        Real teams, real deadlines, real budgets — here's a look at where
+                        that track record was built.
+                    </p>
+                </div>
 
-            <div className="mt-12 grid md:grid-cols-2 gap-8">
-                {EXPERIENCE.map((job) => (
-                    <div
-                        key={job.role}
-                        className="reveal-item border border-black/20 bg-black/2 p-8 flex flex-col justify-between h-full"
-                    >
-                        <div className="flex items-start justify-between gap-4">
-                            <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
-                                {job.index}
-                            </span>
-                            <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
-                                {job.period}
-                            </span>
+                <div className="mt-12 overflow-hidden">
+                    <div ref={trackRef} className="flex w-[200%]">
+                        <div className="w-1/2 grid md:grid-cols-2 gap-8 pr-4">
+                            {EXPERIENCE.slice(0, 2).map((job) => (
+                                <ExperienceCard key={job.role} job={job} />
+                            ))}
                         </div>
-                        <div className="mt-8">
-                            <h3 className="text-xl md:text-2xl font-bold uppercase tracking-wide">
-                                {job.role}
-                            </h3>
-                            <span className="block mt-1 text-sm text-black/50">{job.org}</span>
-                            <p className="mt-4 text-black/70">{job.desc}</p>
+                        <div className="w-1/2 grid md:grid-cols-2 gap-8 pl-4">
+                            {EXPERIENCE.slice(2, 4).map((job) => (
+                                <ExperienceCard key={job.role} job={job} />
+                            ))}
                         </div>
                     </div>
-                ))}
-            </div>
-        </StickySection>
+                </div>
+            </StickySection>
+        </div>
     )
 }
