@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import useStackReveal from '../../hooks/useStackReveal'
 import StickySection from '../../components/StickySection'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -38,7 +39,7 @@ const EXPERIENCE = [
 
 function ExperienceCard({ job }) {
     return (
-        <div className="border border-black/20 bg-black/[0.02] p-8 flex flex-col justify-between h-full">
+        <div className="reveal-item border border-black/20 bg-black/[0.02] p-8 flex flex-col justify-between h-full">
             <div className="flex items-start justify-between gap-4">
                 <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
                     {job.index}
@@ -60,8 +61,10 @@ function ExperienceCard({ job }) {
 
 export default function Experience() {
     const wrapperRef = useRef(null)
-    const headerRef = useRef(null)
+    const sectionRef = useRef(null)
     const trackRef = useRef(null)
+
+    useStackReveal(sectionRef)
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -69,21 +72,12 @@ export default function Experience() {
             const startPx = wrapper.offsetTop
             const endPx = startPx + wrapper.offsetHeight - window.innerHeight
 
-            gsap.set(headerRef.current, { opacity: 0, y: 30 })
-
             ScrollTrigger.create({
                 start: startPx,
                 end: endPx,
-                scrub: true,
+                scrub: 1,
                 onUpdate: (self) => {
                     const p = self.progress
-
-                    // Header fades/lifts in quickly at the very start
-                    const fadeP = Math.min(p / 0.15, 1)
-                    gsap.set(headerRef.current, {
-                        opacity: fadeP,
-                        y: 30 * (1 - fadeP),
-                    })
 
                     // Cards 1-2 slide out left / cards 3-4 slide in from right
                     // across the middle-to-late portion of the scroll
@@ -93,7 +87,12 @@ export default function Experience() {
                         Math.max((p - slideStart) / (slideEnd - slideStart), 0),
                         1
                     )
-                    gsap.set(trackRef.current, { xPercent: -50 * slideP })
+                    gsap.to(trackRef.current, {
+                        xPercent: -50 * slideP,
+                        duration: 0.4,
+                        ease: 'power2.out',
+                        overwrite: 'auto',
+                    })
                 },
             })
         }, wrapperRef)
@@ -103,15 +102,19 @@ export default function Experience() {
 
     return (
         <div ref={wrapperRef} className="relative h-[200vh]">
-            <StickySection id="experience" zIndex={20} bg="bg-white" text="text-black" border>
-                <span className="block text-sm font-semibold tracking-widest uppercase">
+            <StickySection
+                id="experience"
+                ref={sectionRef}
+                zIndex={20}
+                bg="bg-white"
+                text="text-black"
+                border
+            >
+                <span className="reveal-eyebrow block text-sm font-semibold tracking-widest uppercase">
                     Experience
                 </span>
 
-                <div
-                    ref={headerRef}
-                    className="mt-6 grid md:grid-cols-3 gap-8 md:gap-12 items-end"
-                >
+                <div className="reveal-header mt-6 grid md:grid-cols-3 gap-8 md:gap-12 items-end">
                     <h2 className="md:col-span-2 text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
                         Where I've done the work
                     </h2>
