@@ -39,7 +39,7 @@ const EXPERIENCE = [
 
 function ExperienceCard({ job }) {
     return (
-        <div className="reveal-item border border-black/20 bg-black/[0.02] p-8 flex flex-col justify-between h-full">
+        <div className="reveal-item border border-black/20 bg-black/2 p-8 flex flex-col justify-between h-full">
             <div className="flex items-start justify-between gap-4">
                 <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
                     {job.index}
@@ -79,8 +79,6 @@ export default function Experience() {
                 onUpdate: (self) => {
                     const p = self.progress
 
-                    // Cards 1-2 slide out left / cards 3-4 slide in from right
-                    // across the middle-to-late portion of the scroll
                     const slideStart = 0.45
                     const slideEnd = 0.85
                     const slideP = Math.min(
