@@ -7,6 +7,8 @@ import About from './pages/home/about'
 import Services from './pages/home/services'
 import Header from './components/Header'
 import Experience from './pages/home/experience'
+import CTA from './pages/home/cta'
+import Footer from './components/Footer'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -40,6 +42,8 @@ export default function App() {
       <About />
       <Services />
       <Experience />
+      <CTA />
+      <Footer />
     </main>
   )
 }
