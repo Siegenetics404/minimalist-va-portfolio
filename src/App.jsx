@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { setLenisInstance } from './lib/lenisInstance'
 import Hero from './pages/home/hero'
 import About from './pages/home/about'
 import Services from './pages/home/services'
@@ -10,6 +11,8 @@ import Experience from './pages/home/experience'
 import CTA from './pages/home/cta'
 import Footer from './components/Footer'
 import Testimonial from './pages/home/testimonial'
+import ScrollToTopButton from './components/ScrollToTopButton'
+import Project from './pages/home/projects'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -20,6 +23,8 @@ export default function App() {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       autoRaf: false,
     })
+
+    setLenisInstance(lenis)
 
     lenis.on('scroll', ScrollTrigger.update)
 
@@ -43,9 +48,11 @@ export default function App() {
       <About />
       <Services />
       <Experience />
+      <Project />
       <Testimonial />
       <CTA />
       <Footer />
+      <ScrollToTopButton />
     </main>
   )
 }

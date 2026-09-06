@@ -48,6 +48,7 @@ export default function Hero() {
 
   return (
     <section
+      id="home"
       style={{ fontFamily: "'Panchang', sans-serif" }}
       className="relative h-screen w-full text-black flex items-center justify-start text-left px-8 md:px-20 overflow-hidden"
     >
