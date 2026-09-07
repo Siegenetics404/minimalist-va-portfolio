@@ -35,9 +35,23 @@ export default function App() {
 
     ScrollTrigger.refresh()
 
+    // Images (and anything else) loading after the initial mount can change
+    // the page's total height, which silently makes every ScrollTrigger's
+    // start/end positions stale. Refresh again once everything's loaded,
+    // and keep watching for any future layout size changes.
+    const handleLoad = () => ScrollTrigger.refresh()
+    window.addEventListener('load', handleLoad)
+
+    const resizeObserver = new ResizeObserver(() => {
+      ScrollTrigger.refresh()
+    })
+    resizeObserver.observe(document.body)
+
     return () => {
       lenis.destroy()
       gsap.ticker.remove(lenis.raf)
+      window.removeEventListener('load', handleLoad)
+      resizeObserver.disconnect()
     }
   }, [])
 
