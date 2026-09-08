@@ -1,18 +1,15 @@
 import { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { setLenisInstance } from './lib/lenisInstance'
-import Hero from './pages/home/hero'
-import About from './pages/home/about'
-import Services from './pages/home/services'
 import Header from './components/Header'
-import Experience from './pages/home/experience'
-import CTA from './pages/home/cta'
 import Footer from './components/Footer'
-import Testimonial from './pages/home/testimonial'
 import ScrollToTopButton from './components/ScrollToTopButton'
-import Project from './pages/home/projects'
+import Home from './pages/home'
+import NotFound from './pages/error/NotFound'
+import Contact from './pages/contact/Contact'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,10 +32,6 @@ export default function App() {
 
     ScrollTrigger.refresh()
 
-    // Images (and anything else) loading after the initial mount can change
-    // the page's total height, which silently makes every ScrollTrigger's
-    // start/end positions stale. Refresh again once everything's loaded,
-    // and keep watching for any future layout size changes.
     const handleLoad = () => ScrollTrigger.refresh()
     window.addEventListener('load', handleLoad)
 
@@ -58,13 +51,11 @@ export default function App() {
   return (
     <main>
       <Header />
-      <Hero />
-      <About />
-      <Services />
-      <Experience />
-      <Project />
-      <Testimonial />
-      <CTA />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <Footer />
       <ScrollToTopButton />
     </main>
