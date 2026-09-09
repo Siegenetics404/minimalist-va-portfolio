@@ -26,21 +26,22 @@ export default function ScrollToTopButton() {
 
     const handleClick = (e) => {
         e.preventDefault()
-        scrollToSmooth('#home')
+
+        scrollToSmooth(0)
     }
 
     return (
 
-        <a href="#home"
+        <a href="#top"
             onClick={handleClick}
             aria-label="Back to top"
-            className={`fixed bottom-8 right-8 z-40 w-12 h-12 md:w-14 md:h-14 rounded-full border border-black/30 bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 ease-in-out ${visible
+            className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border border-black/30 bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 ease-in-out ${visible
                 ? 'opacity-100 translate-y-0 pointer-events-auto'
                 : 'opacity-0 translate-y-4 pointer-events-none'
                 }`
             }
         >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="sm:w-[18px] sm:h-[18px]">
                 <path d="M12 19V5" />
                 <path d="M5 12l7-7 7 7" />
             </svg>

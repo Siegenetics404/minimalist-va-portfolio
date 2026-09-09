@@ -74,22 +74,22 @@ export default function Testimonial() {
             style={{ fontFamily: "'Panchang', sans-serif" }}
             className="relative z-30 bg-white text-black overflow-hidden"
         >
-            <div className="h-screen flex flex-col md:flex-row px-8 md:px-20 py-24 md:py-32 gap-10">
+            <div className="h-screen flex flex-col md:flex-row px-6 sm:px-8 md:px-14 lg:px-20 py-16 sm:py-20 md:py-28 lg:py-32 gap-5 sm:gap-8 md:gap-10">
                 <div className="md:w-1/3 shrink-0 flex flex-col justify-center">
-                    <span className="reveal-eyebrow block text-sm font-semibold tracking-widest uppercase">
+                    <span className="reveal-eyebrow block text-xs sm:text-sm font-semibold tracking-widest uppercase">
                         Testimonial
                     </span>
-                    <h2 className="reveal-header mt-6 text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
+                    <h2 className="reveal-header mt-3 sm:mt-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
                         What clients say
                     </h2>
-                    <p className="reveal-header mt-6 text-black/70">
+                    <p className="reveal-header mt-3 sm:mt-6 text-sm sm:text-base text-black/70">
                         Don't just take my word for it. Here's what people who've
                         actually worked with me have to say.
                     </p>
                 </div>
 
                 <div className="flex-1 overflow-hidden flex items-stretch">
-                    <div ref={trackRef} className="flex gap-6">
+                    <div ref={trackRef} className="flex gap-4 sm:gap-6">
                         {TESTIMONIALS.map((t) => (
                             <div
                                 key={t.name}
@@ -105,30 +105,30 @@ export default function Testimonial() {
 
                                 <div className="relative flex-1 overflow-hidden">
                                     {/* Truncated view */}
-                                    <div className="absolute inset-0 p-8 flex flex-col justify-between transition-opacity duration-300 ease-in-out group-hover:opacity-0">
-                                        <p className="text-base md:text-lg leading-relaxed line-clamp-3">
+                                    <div className="absolute inset-0 p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-opacity duration-300 ease-in-out group-hover:opacity-0">
+                                        <p className="text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3">
                                             "{t.quote}"
                                         </p>
-                                        <div className="mt-6 shrink-0">
-                                            <span className="block font-bold uppercase tracking-wide">
+                                        <div className="mt-4 sm:mt-6 shrink-0">
+                                            <span className="block text-sm sm:text-base font-bold uppercase tracking-wide">
                                                 {t.name}
                                             </span>
-                                            <span className="block text-sm text-black/50">
+                                            <span className="block text-xs sm:text-sm text-black/50">
                                                 {t.role}
                                             </span>
                                         </div>
                                     </div>
 
                                     {/* Full quote, revealed on hover */}
-                                    <div className="no-scrollbar absolute inset-0 p-8 bg-black/[0.02] flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out overflow-y-auto">
-                                        <p className="text-base md:text-lg leading-relaxed">
+                                    <div className="no-scrollbar absolute inset-0 p-5 sm:p-6 md:p-8 bg-black/[0.02] flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out overflow-y-auto">
+                                        <p className="text-sm sm:text-base md:text-lg leading-relaxed">
                                             "{t.quote}"
                                         </p>
-                                        <div className="mt-6 shrink-0">
-                                            <span className="block font-bold uppercase tracking-wide">
+                                        <div className="mt-4 sm:mt-6 shrink-0">
+                                            <span className="block text-sm sm:text-base font-bold uppercase tracking-wide">
                                                 {t.name}
                                             </span>
-                                            <span className="block text-sm text-black/50">
+                                            <span className="block text-xs sm:text-sm text-black/50">
                                                 {t.role}
                                             </span>
                                         </div>

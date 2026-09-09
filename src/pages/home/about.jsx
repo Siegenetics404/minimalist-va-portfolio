@@ -16,21 +16,21 @@ export default function About() {
 
     return (
         <StickySection id="about" ref={sectionRef} zIndex={0}>
-            <span className="reveal-eyebrow block text-sm font-semibold tracking-widest uppercase">
+            <span className="reveal-eyebrow block text-xs sm:text-sm font-semibold tracking-widest uppercase">
                 About
             </span>
-            <div className="reveal-header mt-4 grid md:grid-cols-3 gap-8 md:gap-12 items-end">
-                <h2 className="md:col-span-2 text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
+            <div className="reveal-header mt-3 sm:mt-4 grid sm:grid-cols-3 gap-4 sm:gap-8 md:gap-12 items-end">
+                <h2 className="sm:col-span-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
                     A brief introduction to myself
                 </h2>
-                <p className="text-black/70 md:text-right">
+                <p className="text-xs sm:text-sm md:text-base text-black/70 sm:text-right">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Senectus
                     arcu nulla viverra arcu elit. Integer nunc posuere ut hendrerit
                     semper vel class aptent taciti.
                 </p>
             </div>
 
-            <div className="mt-8 grid md:grid-cols-2 gap-6 md:gap-10 items-stretch">
+            <div className="mt-4 sm:mt-6 md:mt-8 grid sm:grid-cols-2 gap-3 sm:gap-6 md:gap-10 items-stretch">
                 <div className="reveal-item relative w-full aspect-16/10 overflow-hidden">
                     <img
                         src={profileImg}
@@ -39,18 +39,18 @@ export default function About() {
                     />
                 </div>
 
-                <div className="grid grid-cols-2 grid-rows-2 gap-4 h-full">
+                <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-4 h-full">
                     {STATS.map((stat) => (
                         <div
                             key={stat.label}
-                            className="reveal-item flex flex-col justify-between h-full border border-black/20 bg-black/2 p-4 md:p-6"
+                            className="reveal-item flex flex-col justify-between h-full border border-black/20 bg-black/2 p-2.5 sm:p-4 md:p-6"
                         >
-                            <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
+                            <span className="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-black/40">
                                 {stat.index}
                             </span>
                             <div>
-                                <span className="block text-3xl md:text-4xl font-bold">{stat.value}</span>
-                                <span className="mt-2 block text-xs font-semibold tracking-widest uppercase text-black/60">
+                                <span className="block text-xl sm:text-3xl md:text-4xl font-bold">{stat.value}</span>
+                                <span className="mt-1 sm:mt-2 block text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-black/60">
                                     {stat.label}
                                 </span>
                             </div>

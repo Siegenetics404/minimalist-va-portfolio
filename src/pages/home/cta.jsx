@@ -49,7 +49,7 @@ export default function CTA() {
             style={{ fontFamily: "'Panchang', sans-serif" }}
             className="relative z-30 bg-white text-black px-6 sm:px-8 md:px-14 lg:px-20 py-16 sm:py-20 md:py-28 lg:py-40"
         >
-            <span className="reveal-eyebrow block text-sm font-semibold tracking-widest uppercase text-center">
+            <span className="reveal-eyebrow block text-xs sm:text-sm font-semibold tracking-widest uppercase text-center">
                 Get Started
             </span>
             <div className="reveal-header">

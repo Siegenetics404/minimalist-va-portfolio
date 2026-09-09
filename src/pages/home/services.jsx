@@ -26,34 +26,34 @@ export default function Services() {
 
     return (
         <StickySection id="service" ref={sectionRef} zIndex={10} border>
-            <span className="reveal-eyebrow block text-sm font-semibold tracking-widest uppercase">
+            <span className="reveal-eyebrow block text-xs sm:text-sm font-semibold tracking-widest uppercase">
                 Service
             </span>
 
-            <div className="reveal-header mt-6 grid md:grid-cols-3 gap-8 md:gap-12 items-end">
-                <h2 className="md:col-span-2 text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
+            <div className="reveal-header mt-4 sm:mt-6 grid sm:grid-cols-3 gap-3 sm:gap-8 md:gap-12 items-end">
+                <h2 className="sm:col-span-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
                     What you get when you hire me
                 </h2>
-                <p className="text-black/70 md:text-right">
+                <p className="text-xs sm:text-sm md:text-base text-black/70 sm:text-right">
                     Every engagement starts with a clear plan and ends with results
                     you can measure — here's exactly what that includes.
                 </p>
             </div>
 
-            <div className="mt-12 grid md:grid-cols-3 gap-8">
+            <div className="mt-4 sm:mt-8 md:mt-12 grid sm:grid-cols-3 gap-3 sm:gap-6 md:gap-8">
                 {SERVICES.map((service) => (
                     <div
                         key={service.title}
-                        className="reveal-item border border-black/20 bg-black/2 p-8 flex flex-col justify-between h-full"
+                        className="reveal-item border border-black/20 bg-black/2 p-4 sm:p-6 md:p-8 flex sm:flex-col justify-between sm:justify-between items-center sm:items-stretch h-full gap-3 sm:gap-0"
                     >
-                        <span className="text-xs font-semibold tracking-widest uppercase text-black/40">
+                        <span className="text-xs font-semibold tracking-widest uppercase text-black/40 shrink-0">
                             {service.index}
                         </span>
-                        <div className="mt-8">
-                            <h3 className="text-xl md:text-2xl font-bold uppercase tracking-wide">
+                        <div className="sm:mt-8">
+                            <h3 className="text-base sm:text-xl md:text-2xl font-bold uppercase tracking-wide">
                                 {service.title}
                             </h3>
-                            <p className="mt-4 text-black/70">{service.desc}</p>
+                            <p className="mt-1 sm:mt-4 text-xs sm:text-base text-black/70">{service.desc}</p>
                         </div>
                     </div>
                 ))}

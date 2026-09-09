@@ -52,17 +52,17 @@ export default function Footer() {
       id="footer"
       ref={sectionRef}
       style={{ fontFamily: "'Panchang', sans-serif" }}
-      className="relative z-30 bg-black text-white px-8 md:px-20 py-16 md:py-24"
+      className="relative z-30 bg-black text-white px-6 sm:px-8 md:px-14 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24"
     >
-      <div className="reveal-item flex items-end justify-between gap-6 border-b border-white/10 pb-10">
-        <span className="text-3xl md:text-5xl font-bold uppercase tracking-wide">
+      <div className="reveal-item flex items-end justify-between gap-4 sm:gap-6 border-b border-white/10 pb-6 sm:pb-10">
+        <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
           Jane Solutions
         </span>
 
         <a href="#top"
           onClick={handleBackToTop}
           aria-label="Back to top"
-          className="shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-colors duration-200 ease-in-out"
+          className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-colors duration-200 ease-in-out"
         >
           <svg
             width="18"
@@ -78,8 +78,8 @@ export default function Footer() {
         </a>
       </div>
 
-      <div className="reveal-item mt-10 grid md:grid-cols-2 gap-8 md:gap-10">
-        <nav className="flex flex-wrap gap-x-6 gap-y-3">
+      <div className="reveal-item mt-6 sm:mt-8 md:mt-10 grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
+        <nav className="flex flex-wrap gap-x-5 sm:gap-x-6 gap-y-2.5 sm:gap-y-3">
           {NAV_LINKS.map((link) => (
 
             <a key={link.label}
@@ -92,7 +92,7 @@ export default function Footer() {
           ))}
         </nav>
 
-        <div className="flex flex-wrap gap-x-6 gap-y-3 md:justify-end">
+        <div className="flex flex-wrap gap-x-5 sm:gap-x-6 gap-y-2.5 sm:gap-y-3 md:justify-end">
           {SOCIAL_LINKS.map((social) => (
 
             <a key={social.label}
@@ -108,7 +108,7 @@ export default function Footer() {
         </div >
       </div >
 
-      <div className="reveal-item mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs font-semibold tracking-widest uppercase text-white/40">
+      <div className="reveal-item mt-6 sm:mt-8 md:mt-10 pt-5 sm:pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-2.5 sm:gap-3 text-xs font-semibold tracking-widest uppercase text-white/40">
         <span>hello@janesolutions.com</span>
         <span>
           © {new Date().getFullYear()} Jane Solutions. All rights reserved.
