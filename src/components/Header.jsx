@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { scrollToSmooth } from '../lib/lenisInstance'
 
 const NAV_LINKS = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Service", href: "#service" },
-    { label: "Experience", href: "#experience" },
-    { label: "Project", href: "#project" },
-    { label: "Testimonial", href: "#testimonial" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "#home", type: "hash" },
+    { label: "About", href: "#about", type: "hash" },
+    { label: "Service", href: "#service", type: "hash" },
+    { label: "Experience", href: "#experience", type: "hash" },
+    { label: "Project", href: "#project", type: "hash" },
+    { label: "Testimonial", href: "#testimonial", type: "hash" },
+    { label: "Contact", href: "/contact", type: "route" },
 ]
 
 const SOCIAL_LINKS = [
@@ -19,6 +22,8 @@ const SOCIAL_LINKS = [
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false)
     const [isScrolled, setIsScrolled] = useState(false)
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         const onScroll = () => setIsScrolled(window.scrollY > 10)
@@ -27,10 +32,28 @@ export default function Header() {
         return () => window.removeEventListener('scroll', onScroll)
     }, [])
 
+    const handleNavClick = (e, link) => {
+        e.preventDefault()
+        setIsOpen(false)
+
+        if (link.type === "route") {
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+            navigate(link.href)
+            return
+        }
+
+        // Hash link — only works if the target section actually lives on this page
+        if (location.pathname === "/") {
+            scrollToSmooth(link.href)
+        } else {
+            navigate("/", { state: { scrollTo: link.href } })
+        }
+    }
+
     return (
         <header
             style={{ fontFamily: "'Panchang', sans-serif" }}
-            className="fixed top-0 left-0 w-full z-30 text-black"
+            className="fixed top-0 left-0 w-full z-45 text-black"
         >
             <div className="flex items-center justify-between px-6 sm:px-8 md:px-14 lg:px-20 py-4 sm:py-5 md:py-6 bg-white">
                 <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase">
@@ -80,7 +103,7 @@ export default function Header() {
 
                             <a key={link.label}
                                 href={link.href}
-                                onClick={() => setIsOpen(false)}
+                                onClick={(e) => handleNavClick(e, link)}
                                 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold uppercase tracking-wide text-black hover:text-black/50 hover:translate-x-2 transition-all duration-200 ease-in-out py-1 sm:py-1.5"
                             >
                                 {link.label}

@@ -1,4 +1,6 @@
 import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import profileImg from '../../assets/imgs/profile/profile-bna1.webp'
 import profileImgHover from '../../assets/imgs/profile/profile.webp'
 import { scrollToSmooth } from '../../lib/lenisInstance'
@@ -8,6 +10,7 @@ export default function Hero() {
   const maskRef = useRef(null);
   const mouse = useRef({ x: 0, y: 0 });
   const trail = useRef(Array.from({ length: 10 }, () => ({ x: 0, y: 0 })));
+  const navigate = useNavigate();
 
   useEffect(() => {
     const move = (e) => {
@@ -52,6 +55,12 @@ export default function Hero() {
     scrollToSmooth('#about');
   };
 
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    navigate('/contact');
+  };
+
   return (
     <section
       id="home"
@@ -68,7 +77,7 @@ export default function Hero() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Senectus
             arcu nulla viverra arcu elit.
           </p>
-          <a href="#contact" className="fancy mt-8">
+          <a href="/contact" onClick={handleContactClick} className="fancy mt-8">
             <span className="top-key"></span>
             <span className="text">CONTACT ME</span>
             <span className="bottom-key-1"></span>

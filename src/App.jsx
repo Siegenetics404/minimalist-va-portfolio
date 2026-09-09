@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -14,6 +14,9 @@ import Contact from './pages/contact/Contact'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
+  const location = useLocation()
+  const lenisRef = useRef(null)
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -21,6 +24,7 @@ export default function App() {
       autoRaf: false,
     })
 
+    lenisRef.current = lenis
     setLenisInstance(lenis)
 
     lenis.on('scroll', ScrollTrigger.update)
@@ -30,23 +34,38 @@ export default function App() {
     })
     gsap.ticker.lagSmoothing(0)
 
-    ScrollTrigger.refresh()
-
-    const handleLoad = () => ScrollTrigger.refresh()
-    window.addEventListener('load', handleLoad)
-
-    const resizeObserver = new ResizeObserver(() => {
+    const refreshAll = () => {
+      lenis.resize()
       ScrollTrigger.refresh()
-    })
+    }
+
+    refreshAll()
+
+    window.addEventListener('load', refreshAll)
+
+    const resizeObserver = new ResizeObserver(refreshAll)
     resizeObserver.observe(document.body)
 
     return () => {
       lenis.destroy()
       gsap.ticker.remove(lenis.raf)
-      window.removeEventListener('load', handleLoad)
+      window.removeEventListener('load', refreshAll)
       resizeObserver.disconnect()
     }
   }, [])
+
+  useEffect(() => {
+    const lenis = lenisRef.current
+    if (!lenis) return
+
+    lenis.scrollTo(0, { immediate: true })
+
+    const frame = requestAnimationFrame(() => {
+      lenis.resize()
+      ScrollTrigger.refresh()
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [location.pathname])
 
   return (
     <main>

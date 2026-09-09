@@ -1,15 +1,17 @@
 import { useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useStackReveal from "../hooks/useStackReveal";
 import { scrollToSmooth } from "../lib/lenisInstance";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Service", href: "#service" },
-  { label: "Experience", href: "#experience" },
-  { label: "Project", href: "#project" },
-  { label: "Testimonial", href: "#testimonial" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "#home", type: "hash" },
+  { label: "About", href: "#about", type: "hash" },
+  { label: "Service", href: "#service", type: "hash" },
+  { label: "Experience", href: "#experience", type: "hash" },
+  { label: "Project", href: "#project", type: "hash" },
+  { label: "Testimonial", href: "#testimonial", type: "hash" },
+  { label: "Contact", href: "/contact", type: "route" },
 ];
 
 const SOCIAL_LINKS = [
@@ -21,10 +23,28 @@ const SOCIAL_LINKS = [
 export default function Footer() {
   const sectionRef = useRef(null);
   useStackReveal(sectionRef);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleAnchorClick = (e, href) => {
+  const handleNavClick = (e, link) => {
     e.preventDefault();
-    scrollToSmooth(href);
+
+    if (link.type === "route") {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      navigate(link.href);
+      return;
+    }
+
+    if (location.pathname === "/") {
+      scrollToSmooth(link.href);
+    } else {
+      navigate("/", { state: { scrollTo: link.href } });
+    }
+  };
+
+  const handleBackToTop = (e) => {
+    e.preventDefault();
+    scrollToSmooth(0);
   };
 
   return (
@@ -39,9 +59,8 @@ export default function Footer() {
           Jane Solutions
         </span>
 
-        <a
-          href="#home"
-          onClick={(e) => handleAnchorClick(e, "#home")}
+        <a href="#top"
+          onClick={handleBackToTop}
           aria-label="Back to top"
           className="shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-colors duration-200 ease-in-out"
         >
@@ -62,10 +81,10 @@ export default function Footer() {
       <div className="reveal-item mt-10 grid md:grid-cols-2 gap-8 md:gap-10">
         <nav className="flex flex-wrap gap-x-6 gap-y-3">
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
+
+            <a key={link.label}
               href={link.href}
-              onClick={(e) => handleAnchorClick(e, link.href)}
+              onClick={(e) => handleNavClick(e, link)}
               className="text-xs font-semibold tracking-widest uppercase text-white/70 hover:text-white transition-colors duration-200 ease-in-out"
             >
               {link.label}
@@ -75,8 +94,8 @@ export default function Footer() {
 
         <div className="flex flex-wrap gap-x-6 gap-y-3 md:justify-end">
           {SOCIAL_LINKS.map((social) => (
-            <a
-              key={social.label}
+
+            <a key={social.label}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
@@ -84,9 +103,10 @@ export default function Footer() {
             >
               {social.label}
             </a>
-          ))}
-        </div>
-      </div>
+          ))
+          }
+        </div >
+      </div >
 
       <div className="reveal-item mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs font-semibold tracking-widest uppercase text-white/40">
         <span>hello@janesolutions.com</span>
@@ -94,6 +114,6 @@ export default function Footer() {
           © {new Date().getFullYear()} Jane Solutions. All rights reserved.
         </span>
       </div>
-    </footer>
+    </footer >
   );
 }
