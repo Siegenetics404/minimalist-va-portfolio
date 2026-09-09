@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import profileImg from '../../assets/imgs/profile/profile-bna1.webp'
 import profileImgHover from '../../assets/imgs/profile/profile.webp'
+import { scrollToSmooth } from '../../lib/lenisInstance'
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -46,16 +47,21 @@ export default function Hero() {
     };
   }, []);
 
+  const handleScrollClick = (e) => {
+    e.preventDefault();
+    scrollToSmooth('#about');
+  };
+
   return (
     <section
       id="home"
       style={{ fontFamily: "'Panchang', sans-serif" }}
-      className="relative h-screen w-full text-black flex items-center justify-start text-left px-8 md:px-20 overflow-hidden"
+      className="relative h-screen w-full text-black flex items-center justify-start text-left px-6 sm:px-8 md:px-20 overflow-hidden"
     >
       <div className="relative flex items-center w-full">
-        <div className="flex flex-col items-start text-left">
+        <div className="flex flex-col items-start text-left w-full lg:w-auto">
           <span className="text-sm font-semibold tracking-widest uppercase">Jane Doe</span>
-          <h1 className="text-5xl md:text-7xl font-bold uppercase tracking-wide mt-4 max-w-5xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wide mt-4 max-w-5xl">
             A general virtual assistant from the Philippines
           </h1>
           <p className="mt-6 max-w-xl text-black/70">
@@ -72,7 +78,7 @@ export default function Hero() {
 
         <div
           ref={containerRef}
-          className="absolute top-0 right-0 h-full w-auto -z-10 inline-block"
+          className="hidden lg:inline-block absolute top-0 right-0 h-full w-auto -z-10"
         >
           <img
             src={profileImg}
@@ -90,10 +96,12 @@ export default function Hero() {
       </div>
 
 
+
       <a href="#about"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-black/60 hover:text-black transition-colors duration-200 ease-in-out"
+        onClick={handleScrollClick}
+        className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-black/60 hover:text-black transition-colors duration-200 ease-in-out"
       >
-        <span className="text-xs font-semibold tracking-widest uppercase">
+        <span className="hidden lg:inline text-xs font-semibold tracking-widest uppercase">
           Scroll to explore
         </span>
         <svg
