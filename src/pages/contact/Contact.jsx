@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import useStackReveal from '../../hooks/useStackReveal'
 import contactImg from '../../assets/imgs/contact/contact-image.webp'
 
@@ -14,6 +14,7 @@ const MIN_SEND_DISPLAY_MS = 600
 
 export default function Contact() {
     const navigate = useNavigate()
+    const location = useLocation()
     const formLoadedAt = useRef(Date.now())
     const sectionRef = useRef(null)
     useStackReveal(sectionRef)
@@ -64,7 +65,7 @@ export default function Contact() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        message: '',
+        message: location.state?.message || '',
         hp_field: '', // honeypot — renamed from "company" since browsers autofill
         // recognized field names even with autocomplete="off"
     })
@@ -171,7 +172,7 @@ export default function Contact() {
                             Let's talk
                         </h2>
                         <p className="mt-3 sm:mt-4 text-sm sm:text-base text-black/70 max-w-sm">
-                            Have a project in mind? Send a few details and we'll get back to you within a day or two.
+                            Have a project in mind? Send a few details and I'll get back to you within a day or two.
                         </p>
                     </div>
 
@@ -231,7 +232,7 @@ export default function Contact() {
                     <button
                         type="submit"
                         disabled={status === 'sending'}
-                        className="reveal-item mt-1 sm:mt-2 self-start border border-black/20 px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold tracking-widest uppercase hover:bg-black hover:text-white transition-colors duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="reveal-item mt-1 cursor-pointer sm:mt-2 self-start border border-black/20 px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold tracking-widest uppercase hover:bg-black hover:text-white transition-colors duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {status === 'sending' ? 'Sending...' : 'Send message'}
                     </button>

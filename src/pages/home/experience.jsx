@@ -11,28 +11,28 @@ const EXPERIENCE = [
         index: '01',
         role: 'Project Manager',
         org: 'Freelance',
-        period: '2021 — Present',
+        period: '2021 - Present',
         desc: 'Leading cross-functional teams through full project lifecycles, from scoping to delivery.',
     },
     {
         index: '02',
         role: 'Junior Project Coordinator',
         org: 'Agency Co.',
-        period: '2019 — 2021',
+        period: '2019 - 2021',
         desc: 'Supported delivery on client accounts, keeping timelines, budgets, and stakeholders aligned.',
     },
     {
         index: '03',
         role: 'Operations Assistant',
         org: 'StartUp Inc.',
-        period: '2018 — 2019',
+        period: '2018 - 2019',
         desc: 'Kept day-to-day operations running smoothly across scheduling, vendors, and reporting.',
     },
     {
         index: '04',
         role: 'Project Support Intern',
         org: 'NGO Partners',
-        period: '2017 — 2018',
+        period: '2017 - 2018',
         desc: 'Assisted program leads with documentation, logistics, and on-the-ground coordination.',
     },
 ]
@@ -134,10 +134,10 @@ export default function Experience() {
 
                 <div className="reveal-header mt-4 md:mt-6 grid md:grid-cols-3 gap-4 md:gap-12 items-end">
                     <h2 className="md:col-span-2 text-2xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
-                        Where I've done the work
+                        A track record you can rely on
                     </h2>
                     <p className="text-xs md:text-base text-black/70 md:text-right">
-                        Real teams, real deadlines, real budgets — here's a look at where
+                        Real teams, real deadlines, real budgets. Here's a look at where
                         that track record was built.
                     </p>
                 </div>

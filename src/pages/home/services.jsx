@@ -5,13 +5,13 @@ import StickySection from '../../components/StickySection'
 const SERVICES = [
     {
         index: '01',
-        title: 'Fewer missed deadlines',
+        title: 'Deadlines that hold',
         desc: 'Clear timelines and proactive tracking keep every milestone on schedule, so nothing slips through the cracks.',
     },
     {
         index: '02',
         title: 'One source of truth',
-        desc: 'No more scattered updates across five different tools — status, files, and decisions all live in one place.',
+        desc: 'No more scattered updates across five different tools. Status, files, and decisions all live in one place.',
     },
     {
         index: '03',
@@ -32,11 +32,11 @@ export default function Services() {
 
             <div className="reveal-header mt-4 sm:mt-6 grid sm:grid-cols-3 gap-3 sm:gap-8 md:gap-12 items-end">
                 <h2 className="sm:col-span-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
-                    What you get when you hire me
+                    Here's what changes once I'm on it
                 </h2>
                 <p className="text-xs sm:text-sm md:text-base text-black/70 sm:text-right">
                     Every engagement starts with a clear plan and ends with results
-                    you can measure — here's exactly what that includes.
+                    you can measure. Here's exactly what that includes.
                 </p>
             </div>
 

@@ -21,12 +21,12 @@ export default function About() {
             </span>
             <div className="reveal-header mt-3 sm:mt-4 grid sm:grid-cols-3 gap-4 sm:gap-8 md:gap-12 items-end">
                 <h2 className="sm:col-span-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
-                    A brief introduction to myself
+                    What you get when I run your project
                 </h2>
                 <p className="text-xs sm:text-sm md:text-base text-black/70 sm:text-right">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Senectus
-                    arcu nulla viverra arcu elit. Integer nunc posuere ut hendrerit
-                    semper vel class aptent taciti.
+                    Years of keeping timelines, budgets, and teams on track, so
+                    you get a project that actually ships on schedule instead of
+                    slipping quietly out of control.
                 </p>
             </div>
 

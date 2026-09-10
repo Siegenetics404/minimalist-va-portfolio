@@ -7,6 +7,8 @@ import useStackReveal from '../../hooks/useStackReveal'
 gsap.registerPlugin(ScrollTrigger)
 
 const HEADLINE = "Let's keep your next project on track".split(' ')
+const EMAIL_MESSAGE = "Hi, I'd like to talk about a project..."
+const START_PROJECT_MESSAGE = "Hi, I'm ready to start a project with you."
 
 export default function CTA() {
     const sectionRef = useRef(null)
@@ -39,7 +41,13 @@ export default function CTA() {
     const handleStartProject = (e) => {
         e.preventDefault()
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-        navigate('/contact')
+        navigate('/contact', { state: { message: START_PROJECT_MESSAGE } })
+    }
+
+    const handleEmailClick = (e) => {
+        e.preventDefault()
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+        navigate('/contact', { state: { message: EMAIL_MESSAGE } })
     }
 
     return (
@@ -69,7 +77,8 @@ export default function CTA() {
                 </p>
             </div>
             <div className="reveal-item mt-8 sm:mt-10 flex justify-center px-2">
-                <a href="mailto:hello@janesolutions.com"
+                <a href="/contact"
+                    onClick={handleEmailClick}
                     className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-wide border-b-2 border-black hover:opacity-60 transition-opacity break-all sm:break-normal text-center"
                 >
                     hello@janesolutions.com

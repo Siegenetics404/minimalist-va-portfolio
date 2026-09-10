@@ -71,11 +71,11 @@ export default function Hero() {
         <div className="flex flex-col items-start text-left w-full lg:w-auto">
           <span className="text-sm font-semibold tracking-widest uppercase">Jane Doe</span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wide mt-4 max-w-5xl">
-            A general virtual assistant from the Philippines
+            A project manager who delivers on schedule
           </h1>
           <p className="mt-6 max-w-xl text-black/70">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Senectus
-            arcu nulla viverra arcu elit.
+            Based in the Philippines, I help you hit deadlines, control
+            costs, and skip the chaos of managing it all yourself.
           </p>
           <a href="/contact" onClick={handleContactClick} className="fancy mt-8">
             <span className="top-key"></span>

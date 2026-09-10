@@ -42,6 +42,11 @@ export default function Footer() {
     }
   };
 
+  const handleLogoClick = (e) => {
+    // Same behavior as the "Home" nav link
+    handleNavClick(e, NAV_LINKS[0]);
+  };
+
   const handleBackToTop = (e) => {
     e.preventDefault();
     scrollToSmooth(0);
@@ -55,9 +60,13 @@ export default function Footer() {
       className="relative z-30 bg-black text-white px-6 sm:px-8 md:px-14 lg:px-20 py-12 sm:py-16 md:py-20 lg:py-24"
     >
       <div className="reveal-item flex items-end justify-between gap-4 sm:gap-6 border-b border-white/10 pb-6 sm:pb-10">
-        <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide">
+
+        <a href="#home"
+          onClick={handleLogoClick}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-wide hover:opacity-70 transition-opacity duration-200 ease-in-out"
+        >
           Jane Solutions
-        </span>
+        </a>
 
         <a href="#top"
           onClick={handleBackToTop}

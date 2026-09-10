@@ -50,15 +50,24 @@ export default function Header() {
         }
     }
 
+    const handleLogoClick = (e) => {
+        // Same behavior as the "Home" nav link
+        handleNavClick(e, NAV_LINKS[0])
+    }
+
     return (
         <header
             style={{ fontFamily: "'Panchang', sans-serif" }}
             className="fixed top-0 left-0 w-full z-45 text-black"
         >
             <div className="flex items-center justify-between px-6 sm:px-8 md:px-14 lg:px-20 py-4 sm:py-5 md:py-6 bg-white">
-                <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase">
+
+                <a href="#home"
+                    onClick={handleLogoClick}
+                    className="text-xs sm:text-sm font-semibold tracking-widest uppercase hover:opacity-70 transition-opacity duration-200 ease-in-out"
+                >
                     Jane Solutions
-                </span>
+                </a>
 
                 <button
                     type="button"
