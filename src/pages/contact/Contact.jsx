@@ -66,8 +66,8 @@ export default function Contact() {
         name: '',
         email: '',
         message: location.state?.message || '',
-        hp_field: '', // honeypot — renamed from "company" since browsers autofill
-        // recognized field names even with autocomplete="off"
+        hp_field: '',
+
     })
     const [status, setStatus] = useState('idle') // idle | sending | success | error
 
