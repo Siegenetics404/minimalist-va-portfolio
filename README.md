@@ -98,9 +98,3 @@ This template mixes route-based navigation (`/`, `/contact`) with in-page hash s
 See `placeholder-checklist.md` (generated earlier in this project) for the full itemized list. Short version: brand name ("Jane Solutions"), all social links, all project/testimonial images and copy, favicon, and the page `<title>` are placeholder and need real content before this goes live for an actual client or buyer.
 
 ---
-
-## Style Preferences Applied Throughout
-
-- No em dashes in any copy (dates use plain hyphens: `2021 - Present`)
-- Copy framed around client benefit ("what you get") rather than first-person "about me," except where first-person is contextually correct (Experience's job history, Testimonial's "don't take my word for it" framing)
-- Solo-freelancer voice ("I'll get back to you") — avoid "we/us/our" language site-wide unless intentionally rebranding as a team/agency
