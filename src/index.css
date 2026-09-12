@@ -5,6 +5,19 @@
   border: red 1px solid;
 } */
 
+html,
+body {
+  background-color: #000;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-x: hidden;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
 .fancy {
   background-color: transparent;
   border: 2px solid #000;

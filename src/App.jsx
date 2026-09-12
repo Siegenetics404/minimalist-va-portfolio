@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import gsap from 'gsap'
@@ -7,15 +7,19 @@ import { setLenisInstance } from './lib/lenisInstance'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import ScrollToTopButton from './components/ScrollToTopButton'
+import Loader from './components/Loader'
 import Home from './pages/home'
 import NotFound from './pages/error/NotFound'
 import Contact from './pages/contact/Contact'
+import CustomScrollbar from './components/\'CustomScrollbar'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   const location = useLocation()
   const lenisRef = useRef(null)
+  const prevPathname = useRef(location.pathname)
+  const [showLoader, setShowLoader] = useState(true)
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -54,7 +58,20 @@ export default function App() {
     }
   }, [])
 
+  // On every route change: if we're actually leaving one page for another,
+  // kill every ScrollTrigger (including pinned ones and their DOM
+  // spacers) BEFORE React tries to unmount the old page. Pinned
+  // ScrollTriggers insert extra DOM nodes React doesn't know about;
+  // leaving them behind during unmount is what causes a white-screen
+  // crash. This is a safety net for navigation that doesn't already go
+  // through the synchronous kill in Header/Footer's own nav-click
+  // handlers (e.g. browser back/forward, programmatic redirects).
   useEffect(() => {
+    if (prevPathname.current !== location.pathname) {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+      prevPathname.current = location.pathname
+    }
+
     const lenis = lenisRef.current
     if (!lenis) return
 
@@ -68,15 +85,21 @@ export default function App() {
   }, [location.pathname])
 
   return (
-    <main>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-      <ScrollToTopButton />
-    </main>
+    <>
+      {showLoader && (
+        <Loader onComplete={() => ScrollTrigger.refresh()} />
+      )}
+      <CustomScrollbar />
+      <main>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+        <ScrollToTopButton />
+      </main>
+    </>
   )
 }

@@ -65,7 +65,7 @@ export default function Hero() {
     <section
       id="home"
       style={{ fontFamily: "'Panchang', sans-serif" }}
-      className="relative h-screen w-full text-black flex items-center justify-start text-left px-6 sm:px-8 md:px-20 overflow-hidden"
+      className="relative h-screen w-full bg-white z-10 text-black flex items-center justify-start text-left px-6 sm:px-8 md:px-20 overflow-hidden"
     >
       <div className="relative flex items-center w-full">
         <div className="flex flex-col items-start text-left w-full lg:w-auto">
