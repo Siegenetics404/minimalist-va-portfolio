@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import useStackReveal from '../../hooks/useStackReveal'
@@ -39,6 +39,11 @@ const TESTIMONIALS = [
 export default function Testimonial() {
     const wrapperRef = useRef(null)
     const trackRef = useRef(null)
+    const [loadedImages, setLoadedImages] = useState({})
+
+    const markLoaded = (name) => {
+        setLoadedImages((prev) => ({ ...prev, [name]: true }))
+    }
 
     useStackReveal(wrapperRef)
 
@@ -90,52 +95,62 @@ export default function Testimonial() {
 
                 <div className="flex-1 overflow-hidden flex items-stretch">
                     <div ref={trackRef} className="flex gap-4 sm:gap-6">
-                        {TESTIMONIALS.map((t) => (
-                            <div
-                                key={t.name}
-                                className="reveal-item group w-[80vw] md:w-[420px] shrink-0 h-full border border-black/20 bg-black/[0.02] flex flex-col overflow-hidden"
-                            >
-                                <div className="relative w-full aspect-[16/9] overflow-hidden shrink-0">
-                                    <img
-                                        src={t.image}
-                                        alt={t.name}
-                                        className="absolute inset-0 w-full h-full object-cover object-top"
-                                    />
-                                </div>
+                        {TESTIMONIALS.map((t) => {
+                            const imgLoaded = !!loadedImages[t.name]
 
-                                <div className="relative flex-1 overflow-hidden">
-                                    {/* Truncated view */}
-                                    <div className="absolute inset-0 p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-opacity duration-300 ease-in-out group-hover:opacity-0">
-                                        <p className="text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3">
-                                            "{t.quote}"
-                                        </p>
-                                        <div className="mt-4 sm:mt-6 shrink-0">
-                                            <span className="block text-sm sm:text-base font-bold uppercase tracking-wide">
-                                                {t.name}
-                                            </span>
-                                            <span className="block text-xs sm:text-sm text-black/50">
-                                                {t.role}
-                                            </span>
-                                        </div>
+                            return (
+                                <div
+                                    key={t.name}
+                                    className="reveal-item group w-[80vw] md:w-[420px] shrink-0 h-full border border-black/20 bg-black/[0.02] flex flex-col overflow-hidden"
+                                >
+                                    <div className="relative w-full aspect-[16/9] overflow-hidden shrink-0">
+                                        <div
+                                            className={`absolute inset-0 bg-black/5 animate-pulse transition-opacity duration-300 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                                                }`}
+                                        />
+                                        <img
+                                            src={t.image}
+                                            alt={t.name}
+                                            onLoad={() => markLoaded(t.name)}
+                                            className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ease-out ${imgLoaded ? 'opacity-100' : 'opacity-0'
+                                                }`}
+                                        />
                                     </div>
 
-                                    {/* Full quote, revealed on hover */}
-                                    <div className="no-scrollbar absolute inset-0 p-5 sm:p-6 md:p-8 bg-black/[0.02] flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out overflow-y-auto">
-                                        <p className="text-sm sm:text-base md:text-lg leading-relaxed">
-                                            "{t.quote}"
-                                        </p>
-                                        <div className="mt-4 sm:mt-6 shrink-0">
-                                            <span className="block text-sm sm:text-base font-bold uppercase tracking-wide">
-                                                {t.name}
-                                            </span>
-                                            <span className="block text-xs sm:text-sm text-black/50">
-                                                {t.role}
-                                            </span>
+                                    <div className="relative flex-1 overflow-hidden">
+                                        {/* Truncated view */}
+                                        <div className="absolute inset-0 p-5 sm:p-6 md:p-8 flex flex-col justify-between transition-opacity duration-300 ease-in-out group-hover:opacity-0">
+                                            <p className="text-sm sm:text-base md:text-lg leading-relaxed line-clamp-3">
+                                                "{t.quote}"
+                                            </p>
+                                            <div className="mt-4 sm:mt-6 shrink-0">
+                                                <span className="block text-sm sm:text-base font-bold uppercase tracking-wide">
+                                                    {t.name}
+                                                </span>
+                                                <span className="block text-xs sm:text-sm text-black/50">
+                                                    {t.role}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* Full quote, revealed on hover */}
+                                        <div className="no-scrollbar absolute inset-0 p-5 sm:p-6 md:p-8 bg-black/[0.02] flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out overflow-y-auto">
+                                            <p className="text-sm sm:text-base md:text-lg leading-relaxed">
+                                                "{t.quote}"
+                                            </p>
+                                            <div className="mt-4 sm:mt-6 shrink-0">
+                                                <span className="block text-sm sm:text-base font-bold uppercase tracking-wide">
+                                                    {t.name}
+                                                </span>
+                                                <span className="block text-xs sm:text-sm text-black/50">
+                                                    {t.role}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            )
+                        })}
                     </div>
                 </div>
             </div>

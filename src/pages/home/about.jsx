@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import useStackReveal from '../../hooks/useStackReveal'
 import StickySection from '../../components/StickySection'
 import profileImg from '../../assets/imgs/profile/about-profile.webp'
@@ -13,6 +13,7 @@ const STATS = [
 export default function About() {
     const sectionRef = useRef(null)
     useStackReveal(sectionRef)
+    const [imgLoaded, setImgLoaded] = useState(false)
 
     return (
         <StickySection id="about" ref={sectionRef} zIndex={0}>
@@ -32,10 +33,18 @@ export default function About() {
 
             <div className="mt-4 sm:mt-6 md:mt-8 grid sm:grid-cols-2 gap-3 sm:gap-6 md:gap-10 items-stretch">
                 <div className="reveal-item relative w-full aspect-16/10 overflow-hidden">
+                    {/* Skeleton placeholder — shown until the image finishes loading */}
+                    <div
+                        className={`absolute inset-0 bg-black/5 animate-pulse transition-opacity duration-300 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                            }`}
+                    />
+
                     <img
                         src={profileImg}
                         alt=""
-                        className="absolute inset-0 w-full h-full object-cover object-top"
+                        onLoad={() => setImgLoaded(true)}
+                        className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ease-out ${imgLoaded ? 'opacity-100' : 'opacity-0'
+                            }`}
                     />
                 </div>
 

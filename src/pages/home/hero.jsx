@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import profileImg from '../../assets/imgs/profile/profile-bna1.webp'
@@ -11,6 +11,7 @@ export default function Hero() {
   const mouse = useRef({ x: 0, y: 0 });
   const trail = useRef(Array.from({ length: 10 }, () => ({ x: 0, y: 0 })));
   const navigate = useNavigate();
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
     const move = (e) => {
@@ -89,10 +90,20 @@ export default function Hero() {
           ref={containerRef}
           className="hidden lg:inline-block absolute top-0 right-0 h-full w-auto -z-10"
         >
+          {/* Skeleton placeholder — shown until the base image finishes
+              loading, since the page Loader runs on a fixed timer and
+              isn't actually gated on this image being ready. */}
+          <div
+            className={`absolute inset-0 bg-black/5 animate-pulse transition-opacity duration-300 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              }`}
+          />
+
           <img
             src={profileImg}
             alt=""
-            className="h-full w-auto block"
+            onLoad={() => setImgLoaded(true)}
+            className={`h-full w-auto block transition-opacity duration-500 ease-out ${imgLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
           />
           <div ref={maskRef} className="absolute inset-0 pointer-events-none">
             <img

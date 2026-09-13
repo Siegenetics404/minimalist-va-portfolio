@@ -23,6 +23,8 @@ export default function Contact() {
     const maskRef = useRef(null)
     const mouse = useRef({ x: 0, y: 0 })
     const trail = useRef(Array.from({ length: 10 }, () => ({ x: 0, y: 0 })))
+    const [baseImgLoaded, setBaseImgLoaded] = useState(false)
+    const [maskImgLoaded, setMaskImgLoaded] = useState(false)
 
     useEffect(() => {
         const move = (e) => {
@@ -149,16 +151,26 @@ export default function Contact() {
                     ref={containerRef}
                     className="reveal-item hidden sm:block relative w-full aspect-4/5 md:aspect-auto md:h-full overflow-hidden"
                 >
+                    {/* Skeleton placeholder — shown until the base image finishes loading */}
+                    <div
+                        className={`absolute inset-0 bg-black/5 animate-pulse transition-opacity duration-300 ${baseImgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                            }`}
+                    />
+
                     <img
                         src={contactImg}
                         alt=""
-                        className="absolute inset-0 w-full h-full object-cover object-top"
+                        onLoad={() => setBaseImgLoaded(true)}
+                        className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ease-out ${baseImgLoaded ? 'opacity-100' : 'opacity-0'
+                            }`}
                     />
                     <div ref={maskRef} className="absolute inset-0 pointer-events-none">
                         <img
                             src={contactImg}
                             alt=""
-                            className="absolute inset-0 w-full h-full object-cover object-top grayscale"
+                            onLoad={() => setMaskImgLoaded(true)}
+                            className={`absolute inset-0 w-full h-full object-cover object-top grayscale transition-opacity duration-500 ease-out ${maskImgLoaded ? 'opacity-100' : 'opacity-0'
+                                }`}
                         />
                     </div>
                 </div>

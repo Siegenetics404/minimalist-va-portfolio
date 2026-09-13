@@ -11,7 +11,8 @@ import Loader from './components/Loader'
 import Home from './pages/home'
 import NotFound from './pages/error/NotFound'
 import Contact from './pages/contact/Contact'
-import CustomScrollbar from './components/\'CustomScrollbar'
+import CustomScrollbar from './components/CustomScrollbar'
+import CustomCursor from './components/CustomCursor'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -58,14 +59,6 @@ export default function App() {
     }
   }, [])
 
-  // On every route change: if we're actually leaving one page for another,
-  // kill every ScrollTrigger (including pinned ones and their DOM
-  // spacers) BEFORE React tries to unmount the old page. Pinned
-  // ScrollTriggers insert extra DOM nodes React doesn't know about;
-  // leaving them behind during unmount is what causes a white-screen
-  // crash. This is a safety net for navigation that doesn't already go
-  // through the synchronous kill in Header/Footer's own nav-click
-  // handlers (e.g. browser back/forward, programmatic redirects).
   useEffect(() => {
     if (prevPathname.current !== location.pathname) {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
@@ -90,6 +83,7 @@ export default function App() {
         <Loader onComplete={() => ScrollTrigger.refresh()} />
       )}
       <CustomScrollbar />
+      <CustomCursor />
       <main>
         <Header />
         <Routes>

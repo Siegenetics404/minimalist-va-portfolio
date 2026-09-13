@@ -25,6 +25,8 @@ export default function Project() {
 
     const [expanded, setExpanded] = useState(null)
     const isTransitioning = useRef(false)
+    const [mobileLoaded, setMobileLoaded] = useState({})
+    const [desktopLoaded, setDesktopLoaded] = useState({})
 
     const toggleExpanded = (number) => {
 
@@ -61,6 +63,8 @@ export default function Project() {
                 {PROJECTS.map((project, index) => {
                     const isLast = index === PROJECTS.length - 1
                     const isOpen = expanded === project.number
+                    const isMobileImgLoaded = !!mobileLoaded[project.number]
+                    const isDesktopImgLoaded = !!desktopLoaded[project.number]
 
                     return (
                         <div
@@ -74,11 +78,17 @@ export default function Project() {
                                 aria-expanded={isOpen}
                                 className="sm:hidden w-full text-left flex items-center gap-4 py-4 active:opacity-60 transition-opacity duration-150 ease-out"
                             >
-                                <div className="w-20 h-16 shrink-0 overflow-hidden">
+                                <div className="relative w-20 h-16 shrink-0 overflow-hidden">
+                                    <div
+                                        className={`absolute inset-0 bg-black/5 animate-pulse transition-opacity duration-300 ${isMobileImgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                                            }`}
+                                    />
                                     <img
                                         src={project.image}
                                         alt={project.title}
-                                        className="w-full h-full object-cover object-top"
+                                        onLoad={() => setMobileLoaded((prev) => ({ ...prev, [project.number]: true }))}
+                                        className={`w-full h-full object-cover object-top transition-opacity duration-500 ease-out ${isMobileImgLoaded ? 'opacity-100' : 'opacity-0'
+                                            }`}
                                     />
                                 </div>
                                 <div className="flex-1 min-w-0 flex items-center justify-between gap-2">
@@ -135,10 +145,16 @@ export default function Project() {
 
                                     {/* top-6 matches the row's py-6 above */}
                                     <div className="absolute left-0 top-6 w-32 h-24 md:w-48 md:h-36 overflow-hidden">
+                                        <div
+                                            className={`absolute inset-0 bg-black/5 animate-pulse transition-opacity duration-300 ${isDesktopImgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                                                }`}
+                                        />
                                         <img
                                             src={project.image}
                                             alt={project.title}
-                                            className="w-full h-full object-cover object-top"
+                                            onLoad={() => setDesktopLoaded((prev) => ({ ...prev, [project.number]: true }))}
+                                            className={`w-full h-full object-cover object-top transition-opacity duration-500 ease-out ${isDesktopImgLoaded ? 'opacity-100' : 'opacity-0'
+                                                }`}
                                         />
                                     </div>
 
